@@ -5,14 +5,14 @@ groups - A list of groups.
 
 Example:
 
-    {% snippet "group/snippets/group_list.html" %}
+    {% snippet "collection/snippets/collection_list.html" %}
 
 #}
 {% block group_list %}
 <ul class="media-grid" data-module="media-grid">
 	{% block group_list_inner %}
   {% for group in groups %}
-    {% snippet "collection/snippets/group_item.html", group=group, position=loop.index %}
+    {% snippet "collection/snippets/collection_item.html", group=group, position=loop.index %}
   {% endfor %}
   {% endblock %}
 </ul>

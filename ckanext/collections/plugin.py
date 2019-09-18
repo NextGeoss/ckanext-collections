@@ -8,6 +8,7 @@ import routes
 class CollectionsPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IGroupForm, inherit=True)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IRoutes, inherit=True)
 
     def group_types(self):
@@ -25,7 +26,7 @@ class CollectionsPlugin(plugins.SingletonPlugin):
 		return schema
 
     def group_form(group_type='collection'):
-        return 'collection/snippets/group_form.html'
+        return 'collection/snippets/collection_form.html'
 
     def index_template(self):
         return 'collection/index.html'
@@ -63,6 +64,14 @@ class CollectionsPlugin(plugins.SingletonPlugin):
         '''
         Map custom controllers and endpoints
         '''
+        package_controller = "ckanext.collections.controller:CollectionsPackageController"
+
+        with routes.mapper.SubMapper(map, controller=package_controller) as m:
+                m.connect('dataset_collections', '/dataset/collections/{id}',
+                  action='collections', ckan_icon='group')
+                m.connect('dataset_groups', '/dataset/groups/{id}',
+                  action='groups', ckan_icon='group')
+
 
         collection_controller = 'ckanext.collections.controller:CollectionController'
 
