@@ -9,6 +9,8 @@
     {% set attrs = {'data-module': 'slug-preview-target', 'class': 'form-control'} %}
     {{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Collection'), value=data.title, error=errors.title, classes=['control-full'], attrs=attrs) }}
 
+    {{ form.input('collection_id', label=_('Collection ID'), id='field-collection_id', placeholder=_('Collection ID'), value=data.collection_id, error=errors.collection_id,  classes=['control-full'], is_required=true) }}
+
     {%- set prefix = h.url_for(group_type + '_read', id='') -%}
     {%- set domain = h.url_for(group_type + '_read', id='', qualified=true) -%}
     {% set domain = domain|replace("http://", "")|replace("https://", "") %}
