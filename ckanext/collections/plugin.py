@@ -24,6 +24,8 @@ class CollectionsPlugin(plugins.SingletonPlugin):
         schema = ckan_schema.group_form_schema()
         schema.update({
             'collection_id': [toolkit.get_validator('not_empty'), toolkit.get_converter('convert_to_extras')],
+            'description': [toolkit.get_validator('not_empty')],
+            'title': [toolkit.get_validator('not_empty')],
         })
         return schema
 
