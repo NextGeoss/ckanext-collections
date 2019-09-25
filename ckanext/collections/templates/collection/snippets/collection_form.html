@@ -7,7 +7,9 @@
 
   {% block basic_fields %}
     {% set attrs = {'data-module': 'slug-preview-target', 'class': 'form-control'} %}
-    {{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Collection'), value=data.title, error=errors.title, classes=['control-full'], attrs=attrs) }}
+    {{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Collection'), value=data.title, error=errors.title, classes=['control-full'], attrs=attrs, is_required=true) }}
+
+    {{ form.input('collection_id', label=_('Collection ID'), id='field-collection_id', placeholder=_('Collection ID'), value=data.collection_id, error=errors.collection_id,  classes=['control-full'], is_required=true) }}
 
     {%- set prefix = h.url_for(group_type + '_read', id='') -%}
     {%- set domain = h.url_for(group_type + '_read', id='', qualified=true) -%}
@@ -16,7 +18,7 @@
 
     {{ form.prepend('name', label=_('URL'), prepend=prefix, id='field-url', placeholder=_('my-' + group_type), value=data.name, error=errors.name, attrs=attrs, is_required=true) }}
 
-    {{ form.markdown('description', label=_('Description'), id='field-description', placeholder=_('A little information about my group...'), value=data.description, error=errors.description) }}
+    {{ form.markdown('description', label=_('Description'), id='field-description', placeholder=_('A little information about my group...'), value=data.description, error=errors.description, classes=['control-full'], is_required=true) }}
 
     {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
     {% set is_url = data.image_url and data.image_url.startswith('http') %}

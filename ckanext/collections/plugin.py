@@ -21,9 +21,20 @@ class CollectionsPlugin(plugins.SingletonPlugin):
 		False
 
     def form_to_db_schema(self):
-		schema = ckan_schema.group_form_schema()
+        schema = ckan_schema.group_form_schema()
+        schema.update({
+            'collection_id': [toolkit.get_validator('not_empty'), toolkit.get_converter('convert_to_extras')],
+            'description': [toolkit.get_validator('not_empty')],
+            'title': [toolkit.get_validator('not_empty')],
+        })
+        return schema
 
-		return schema
+    def db_to_form_schema(self):
+        schema = ckan_schema.group_form_schema()
+        schema.update({
+            'collection_id': [toolkit.get_converter('convert_from_extras')],
+        })
+        return schema
 
     def group_form(group_type='collection'):
         return 'collection/snippets/collection_form.html'
